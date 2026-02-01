@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title> — Último Capítulo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#100404;
+      --bg-2:#250808;
+      --accent:#e33636;
+      --soft:#f6e9e9;
+      --glass: rgba(255,255,255,0.04);
+      --card-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      --radius:16px;
+      --max-width:1100px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:'Inter', system-ui;
+      color:var(--soft);
+      background:linear-gradient(180deg,var(--bg) 0%, #190707 50%, #2d0a0a 100%);
+      -webkit-font-smoothing:antialiased;
+      line-height:1.5;
+      overflow-x:hidden;
+    }
+    .wrap{max-width:var(--max-width); margin:36px auto; padding:20px;}
+
+    header{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:18px;}
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{
+      width:56px; height:56px; border-radius:12px;
+      background:linear-gradient(135deg,var(--accent), #8a0c0c);
+      box-shadow: 0 6px 20px rgba(227,54,54,0.35);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:700; font-family:'Playfair Display'; font-size:20px;
+    }
+    h1{font-family:'Playfair Display'; margin:0; font-size:20px}
+    p.lead{margin:0; opacity:0.9; font-size:13px}
+
+    .tabs{display:flex; gap:8px;}
+    .tabbtn{
+      background:transparent; border:1px solid transparent; padding:10px 14px; border-radius:12px;
+      cursor:pointer; font-weight:600; color:var(--soft);
+    }
+    .tabbtn.active{
+      background:linear-gradient(90deg, rgba(227,54,54,0.18), rgba(255,255,255,0.02));
+      border-color:rgba(227,54,54,0.25);
+      box-shadow: var(--card-shadow);
+    }
+
+    main{background:transparent; padding:18px; border-radius:12px}
+    section{display:none}
+    section.active{display:block}
+
+    /* --- CÉU DELA --- */
+    .sky-container {
+      position: relative;
+      width: 100%;
+      height: 80vh;
+      background: radial-gradient(ellipse at bottom, #1b0c0c 0%, #0a0303 100%);
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    }
+    .star {
+      position: absolute;
+      background: radial-gradient(white, rgba(255,200,200,0.6));
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      animation: pulse 3.5s infinite ease-in-out, twinkle 6s infinite ease-in-out;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0.85;
+    }
+    .star:hover {
+      transform: scale(1.6);
+      box-shadow: 0 0 14px var(--accent);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.4); opacity: 1; }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.6); }
+    }
+
+    .popup {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      background: rgba(30,0,0,0.9);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+      max-width: 280px;
+      box-shadow: var(--card-shadow);
+      opacity: 0;
+      transition: all 0.4s ease;
+      pointer-events: none;
+      z-index: 10;
+    }
+    .popup.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+      pointer-events: all;
+    }
+    .popup img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .popup p {
+      font-family: 'Playfair Display';
+      font-size: 15px;
+      color: var(--soft);
+      margin: 0;
+    }
+
+    /* 🔴 BOTÃO DE FECHAR */
+    .close-btn {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--soft);
+      font-size: 20px;
+      line-height: 20px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    .close-btn:hover {
+      background: rgba(227,54,54,0.5);
+      color: white;
+      transform: scale(1.08);
+    }
+
+    /* --- ABA 2 — ECOS --- */
+    .ecos-box{
+      max-width:600px;
+      margin:40px auto;
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border:1px solid rgba(227,54,54,0.18);
+      border-radius:16px;
+      box-shadow:0 0 25px rgba(196,23,29,0.25);
+      padding:28px 20px;
+      text-align:center;
+      animation:fadeInBox 1s ease;
+    }
+    @keyframes fadeInBox{
+      from{opacity:0; transform:translateY(20px);}
+      to{opacity:1; transform:none;}
+    }
+
+    .ecos-title{
+      font-family:'Playfair Display';
+      color:var(--accent);
+      font-size:22px;
+      margin-bottom:8px;
+    }
+
+    .ecos-input{
+      display:flex; justify-content:center; gap:8px; margin-bottom:20px;
+    }
+    .ecos-input input{
+      width:100px; padding:10px 12px;
+      border-radius:10px; border:1px solid rgba(255,255,255,0.06);
+      background:transparent; color:var(--soft); text-align:center; font-size:16px;
+    }
+    .ecos-input button{
+      padding:10px 16px; border-radius:10px; border:0;
+      background:var(--accent); color:white; font-weight:600; cursor:pointer;
+      transition:0.3s;
+    }
+    .ecos-input button:hover{filter:brightness(1.1)}
+    .elogio-texto{
+      min-height:60px; font-size:17px; font-family:'Playfair Display';
+      color:var(--soft); opacity:0; transition:opacity 0.8s ease; line-height:1.6;
+    }
+    .elogio-texto.show{opacity:1;}
+
+    /* --- CONSIDERAÇÕES FINAIS --- */
+    .final-card{background:linear-gradient(180deg, rgba(0,0,0,0.35), rgba(255,0,0,0.02));
+      padding:20px; border-radius:14px; box-shadow:var(--card-shadow);
+      border:1px solid rgba(227,54,54,0.18);}
+    .final-title{font-family:'Playfair Display'; font-size:22px; margin:0 0 8px 0}
+    .final-text{font-size:16px; opacity:0.95}
+
+    .secret-area{margin-top:18px}
+    .pw-row{display:flex; gap:8px; align-items:center}
+    .pw-row input[type=password]{flex:1; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:var(--soft)}
+    .pw-row button{padding:10px 12px; border-radius:10px; border:0; background:var(--accent); color:white; cursor:pointer; transition:0.3s}
+    .pw-row button:hover{filter:brightness(1.15)}
+    .revealed{margin-top:14px; font-size:15px; line-height:1.6; white-space:pre-wrap; min-height:48px}
+
+    .cursor{display:inline-block; width:8px; height:18px; background:var(--soft); margin-left:6px; opacity:0.9; vertical-align:middle; animation:blink 1s steps(2, start) infinite}
+    @keyframes blink{50%{opacity:0}}
+
+    #constellation {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">N</div>
+        <div>
+          <h1>  Último Capítulo</h1>
+          <p class="lead">Um conto em três atos — um céu, ecos e um último segredo.</p>
+        </div>
+      </div>
+      <nav class="tabs">
+        <button class="tabbtn active" data-target="timeline">Céu</button>
+        <button class="tabbtn" data-target="carouselSec">Ecos</button>
+        <button class="tabbtn" data-target="final">Finais</button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- CÉU DELA -->
+      <section id="timeline" class="active">
+        <div class="sky-container" id="sky">
+  <canvas id="constellation"></canvas>
+</div>
+        <div class="popup" id="popup">
+          <button class="close-btn" id="closePopup">×</button>
+          <img id="popupImg" src="" alt="Imagem">
+          <p id="popupText"></p>
+        </div>
+      </section>
+
+      <!-- ABA 2 — ECOS -->
+      <section id="carouselSec">
+        <div class="ecos-box">
+          <h2 class="ecos-title">Ecos de frases que representam sentimentos</h2>
+          <p class="ecos-sub">... <strong>...</strong> ...</p>
+          <div class="ecos-input">
+            <input id="numInput" type="number" placeholder="Digite um número">
+            <button id="showElogio">Revelar</button>
+          </div>
+          <div id="elogioTexto" class="elogio-texto"></div>
+        </div>
+      </section>
+
+      <!-- FINAL -->
+      <section id="final">
+        <div class="final-card">
+          <h2 class="final-title">Finais</h2>
+          <p class="final-text">Algumas coisas pedem silêncio. Outras pedem coragem. Histórias pedem tempo, e segredos, precisam de uma chave.</p>
+          <div class="secret-area">
+            <div style="opacity:0.9; font-size:14px">Apenas os ecos podem dizer.</div>
+            <div class="pw-row">
+              <input id="pw" type="password" placeholder="Digite a senha">
+              <button id="revealBtn">Revelar</button>
+            </div>
+            <div id="feedback" style="margin-top:10px; color:#ffb3b3; min-height:18px; font-size:13px"></div>
+            <div id="revealed" class="revealed"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Tabs
+    document.querySelectorAll('.tabbtn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        document.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('main section').forEach(s=>s.classList.remove('active'));
+        document.getElementById(btn.dataset.target).classList.add('active');
+      });
+    });
+
+    // Céu dela — estrelas
+    const sky = document.getElementById('sky');
+    const popup = document.getElementById('popup');
+    const popupImg = document.getElementById('popupImg');
+    const popupText = document.getElementById('popupText');
+    const closePopup = document.getElementById('closePopup');
+
+    const starsData = [
+      {x:20, y:30, img:'rosa.jpg', text:'Mil e uma rosas pra ti.'},
+      {x:60, y:50, img:'fred.jpg', text:'Nosso ursinho pequeno e fofo.'},
+      {x:35, y:70, img:'unhas.jpg', text:'As unhas que mais se destacam.'},
+      {x:80, y:20, img:'prin.jpeg', text:'Frases e frases, onde encontra-se um sentido.'},
+      {x:50, y:40, img:'nic.jpg', text:'Sua existencia, é divina.'},
+      {x:25, y:15, img:'kira.jpeg', text:'A segunda gatinha mais linda do mundo.'},
+      {x:75, y:65, img:'mininic.jpeg', text:'Uma garotinha que merece sorrir, e ser amada.'},
+      {x:15, y:55, img:'o.jpeg', text:'Tenho que dizer algo?'},
+      {x:90, y:75, img:'nic2.jpeg', text:'Levou a beleza toda do mundo pra casa?'}
+    ];
+
+    starsData.forEach(star=>{
+      const s=document.createElement('div');
+      s.className='star';
+      s.style.left=star.x+'%';
+      s.style.top=star.y+'%';
+      sky.appendChild(s);
+      s.addEventListener('click',()=>{
+        popupImg.src=star.img;
+        popupText.textContent=star.text;
+        popup.classList.add('show');
+      });
+    });
+
+    // Botão de fechar
+    closePopup.addEventListener('click', ()=> {
+      popup.classList.remove('show');
+    });
+
+    // Ecos — elogios
+    const elogiosMap={
+      12:"um dia, uma princesa chegou. N",
+      5:"um mês, e ela já era a mais linda de todas, I",
+      10:"e nisso, ela se tornou a garota perfeita e deslumbrante que é. C",
+      17:"seu jeito, sua maneira, você, é o motivo de eu sorrir. 0",
+      8:"são infinitos os elogios, os pensamentos, sonhos e tudo que eu poderia falar pra você. L",
+      11:"se cada flor é única, você é uma flor rara, desejada, que só aparece uma vez. 1",
+      45:"Te vejo às 18:00. Às 17:00 já estarei arrumado. Às 16:00, animado. E às 15:00? Já estarei ansioso pelo seu sorriso. 2",
+      777:"Nem o céu tem tanto brilho quanto seu jeito de existir. 3",
+      88:"é a garota que eu faria de tudo, é a rainha que eu escolhi seguir. 4"
+    };
+
+    const numInput=document.getElementById('numInput');
+    const showBtn=document.getElementById('showElogio');
+    const elogioTexto=document.getElementById('elogioTexto');
+
+    showBtn.addEventListener('click',()=>{
+      const n=parseInt(numInput.value.trim());
+      elogioTexto.classList.remove('show');
+      if(isNaN(n)||!elogiosMap[n]){
+        elogioTexto.textContent="Sabe, a 6 meses atrás, nunca achei que estaria fazendo um site desses, bom, não imaginava nada do que aconteceu, foi tudo uma grande surpresa.";
+      }else{
+        elogioTexto.textContent=elogiosMap[n];
+      }
+      setTimeout(()=>elogioTexto.classList.add('show'),80);
+    });
+
+    // Senha — texto final
+    const secret="NIC0L1234";
+    const finalMessage=`Então?\n Acho que devia ter me esforçado mais nessa senha.\n No final, é mais um texto, ou, uma história sem fim, não planejei nada desse site, apenas surgiram as ideias e tentei fazer da melhor maneira possível. Espero que goste desse presente simples Niczinha, fiz com muito carinho. Por último, saiba que você é linda, perfeita, extremamente sexy e brilhante, charmosa e única, podia falar as safadezas, mas meu objetivo é não parecer fofo kkkkkk (prometo que ainda vai ter um texto bom de vdd)\nCom amor, pra você, vai flamengo! \nB.`;
+    const btn=document.getElementById('revealBtn');
+    const pwInput=document.getElementById('pw');
+    const revealed=document.getElementById('revealed');
+    const feedback=document.getElementById('feedback');
+
+    function showTypedText(text){
+      revealed.textContent='';
+      let i=0;
+      const cursor=document.createElement('span');cursor.className='cursor';
+      revealed.appendChild(cursor);
+      const interval=setInterval(()=>{
+        if(i>=text.length){clearInterval(interval);cursor.remove();return;}
+        cursor.insertAdjacentText('beforebegin',text[i]);
+        i++;
+      },28);
+    }
+    btn.addEventListener('click',()=>{
+      const val=pwInput.value.trim();
+      if(!val){feedback.textContent='Digite a senha.';return;}
+      if(val===secret){
+        showTypedText(finalMessage);
+        feedback.style.color='#b9ffd6';
+        feedback.textContent='Segredo revelado.';
+      }else{
+        feedback.textContent='Nem tudo é para ser visto ainda.';
+        feedback.style.color='#ffb3b3';
+      }
+    });
+
+    /* ===== EFEITO CONSTELAÇÃO ===== */
+const canvas = document.getElementById('constellation');
+const ctx = canvas.getContext('2d');
+let starsPos = [];
+let mouse = { x: null, y: null };
+
+function resizeCanvas() {
+  canvas.width = sky.offsetWidth;
+  canvas.height = sky.offsetHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+// Captura posição das estrelas já existentes
+function updateStarPositions() {
+  starsPos = [...document.querySelectorAll('.star')].map(star => {
+    const rect = star.getBoundingClientRect();
+    const skyRect = sky.getBoundingClientRect();
+    return {
+      x: rect.left - skyRect.left + rect.width / 2,
+      y: rect.top - skyRect.top + rect.height / 2
+    };
+  });
+}
+
+// Espera as estrelas serem criadas
+setTimeout(updateStarPositions, 300);
+window.addEventListener('resize', updateStarPositions);
+
+sky.addEventListener('mousemove', e => {
+  const rect = sky.getBoundingClientRect();
+  mouse.x = e.clientX - rect.left;
+  mouse.y = e.clientY - rect.top;
+});
+
+sky.addEventListener('mouseleave', () => {
+  mouse.x = null;
+  mouse.y = null;
+});
+
+function drawConstellations() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (mouse.x === null) {
+    requestAnimationFrame(drawConstellations);
+    return;
+  }
+
+  starsPos.forEach(star => {
+    const dx = star.x - mouse.x;
+    const dy = star.y - mouse.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    if (dist < 140) {
+      ctx.beginPath();
+      ctx.moveTo(mouse.x, mouse.y);
+      ctx.lineTo(star.x, star.y);
+      ctx.strokeStyle = `rgba(227,54,54,${1 - dist / 140})`;
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+    }
+  });
+
+  requestAnimationFrame(drawConstellations);
+}
+
+drawConstellations();
+
+sky.addEventListener('touchmove', e => {
+  const rect = sky.getBoundingClientRect();
+  const touch = e.touches[0];
+  mouse.x = touch.clientX - rect.left;
+  mouse.y = touch.clientY - rect.top;
+}, { passive: true });
+
+sky.addEventListener('touchend', () => {
+  mouse.x = null;
+  mouse.y = null;
+});
+  </script>
+</body>
+</html>
